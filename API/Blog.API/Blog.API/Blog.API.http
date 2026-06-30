@@ -1,6 +1,16 @@
-@Blog.API_HostAddress = http://localhost:5224
 
-GET {{Blog.API_HostAddress}}/weatherforecast/
+
+GET http://localhost:5224/weatherforecast/
 Accept: application/json
 
 ###
+
+### Send POST request with json body
+
+POST http://localhost:5224/api/Categories
+Content-Type: application/json
+
+{
+  "name": "test1",
+  "urlHandle": "test-1"
+}
