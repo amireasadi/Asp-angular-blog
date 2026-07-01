@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-ExtraBold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+span,
+a {
+  font-family: 'Vazirmatn', sans-serif;
+}
