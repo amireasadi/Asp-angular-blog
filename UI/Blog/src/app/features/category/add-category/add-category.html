@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="mt-3">دسته بندی جدید</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mt-3">
+      <div class="mt-3">
+        <label for="title" class="form-label">عنوان</label>
+        <input type="text" name="title" class="form-control" formControlName="title" />
+      </div>
+      <div class="mt-3">
+        <label for="url" class="form-label">پیوند</label>
+        <input type="text" name="url" class="form-control" formControlName="url" />
+      </div>
+      <div class="mt-3">
+        <button class="btn btn-primary">ذخیره</button>
+      </div>
+    </div>
+  </form>
+</div>
