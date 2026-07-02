@@ -1,17 +1,19 @@
 <div class="container">
   <h1 class="mt-3">دسته بندی جدید</h1>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addCategoryFormGroup" (ngSubmit)="onSubmit()">
     <div class="mt-3">
       <div class="mt-3">
         <label for="title" class="form-label">عنوان</label>
         <input type="text" name="title" class="form-control" formControlName="title" />
+        <div class="text-danger mt-1 small">{{showError(nameFormControl)}}</div>
       </div>
       <div class="mt-3">
         <label for="url" class="form-label">پیوند</label>
         <input type="text" name="url" class="form-control" formControlName="url" />
+        <div class="text-danger mt-1 small">{{showError(urlFormControl)}}</div>
       </div>
       <div class="mt-3">
-        <button class="btn btn-primary">ذخیره</button>
+        <button class="btn btn-primary" [disabled]="!addCategoryFormGroup.valid">ذخیره</button>
       </div>
     </div>
   </form>
