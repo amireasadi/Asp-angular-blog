@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { addCategoryRequest } from '../models/category.model';
+import { CategoryService } from '../services/category-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category',
@@ -8,6 +11,21 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './add-category.css',
 })
 export class AddCategory {
+  constructor() {
+    effect(() => {
+      if (this.categoryService.addCategoryStatus() === 'success') {
+        console.log('success');
+        // this.router.navigate(['/admin/categories']);
+      }
+      if (this.categoryService.addCategoryStatus() === 'error') {
+        console.log('Something went wrong trying to add category');
+      }
+    });
+  }
+
+  categoryService = inject(CategoryService);
+  router = inject(Router);
+
   addCategoryFormGroup = new FormGroup({
     title: new FormControl('', [
       Validators.required,
@@ -45,7 +63,12 @@ export class AddCategory {
 
   onSubmit() {
     if (this.addCategoryFormGroup.valid) {
-      console.log(this.addCategoryFormGroup.value);
+      let addCategoryFormValue = this.addCategoryFormGroup.value;
+      let addCategoryRequst: addCategoryRequest = {
+        name: addCategoryFormValue.title!,
+        urlHandle: addCategoryFormValue.url!,
+      };
+      this.categoryService.addCategory(addCategoryRequst);
       this.addCategoryFormGroup.reset();
     } else {
       console.log('Err');
