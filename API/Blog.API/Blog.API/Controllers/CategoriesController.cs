@@ -12,7 +12,7 @@ public class CategoriesController : ControllerBase
 {
     private readonly ICategoryRepository _categoryRepository;
 
-    public CategoriesController( ICategoryRepository categoryRepository)
+    public CategoriesController(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }
@@ -25,14 +25,20 @@ public class CategoriesController : ControllerBase
             Name = category.Name,
             UrlHandle = category.UrlHandle,
         };
-        
+
         await _categoryRepository.CreateAsync(newCat);
-        
+
         return Ok(new CategoryDto()
         {
             Id = newCat.Id,
             Name = newCat.Name,
             UrlHandle = newCat.UrlHandle,
         });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        return Ok(await _categoryRepository.GetAllAsync());
     }
 }

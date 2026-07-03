@@ -1,9 +1,10 @@
-
-
 GET http://localhost:5224/weatherforecast/
 Accept: application/json
 
 ###
+GET http://localhost:5224/api/Categories
+Accept: application/json
+
 
 ### Send POST request with json body
 
