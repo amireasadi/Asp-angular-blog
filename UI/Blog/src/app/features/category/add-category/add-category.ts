@@ -14,10 +14,11 @@ export class AddCategory {
   constructor() {
     effect(() => {
       if (this.categoryService.addCategoryStatus() === 'success') {
-        console.log('success');
-        // this.router.navigate(['/admin/categories']);
+        this.categoryService.addCategoryStatus.set('idle');
+        this.router.navigate(['/admin/categories']);
       }
       if (this.categoryService.addCategoryStatus() === 'error') {
+        this.categoryService.addCategoryStatus.set('idle');
         console.log('Something went wrong trying to add category');
       }
     });
