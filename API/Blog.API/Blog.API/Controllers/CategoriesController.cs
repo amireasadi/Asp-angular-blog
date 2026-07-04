@@ -41,4 +41,13 @@ public class CategoriesController : ControllerBase
     {
         return Ok(await _categoryRepository.GetAllAsync());
     }
+
+    [HttpGet("{id:Guid}")]
+    public async Task<IActionResult> GetCategoryById(Guid id)
+    {
+        var cat = await _categoryRepository.GetByIdAsync(id);
+        if (cat != null)
+            return Ok(cat);
+        return NotFound("Category with the given id not found");
+    }
 }
