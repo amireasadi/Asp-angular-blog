@@ -1,4 +1,3 @@
-using Blog.API.Data;
 using Blog.API.Models.Domain;
 using Blog.API.Models.DTO;
 using Blog.API.Repositories.Interface;
@@ -49,5 +48,20 @@ public class CategoriesController : ControllerBase
         if (cat != null)
             return Ok(cat);
         return NotFound("Category with the given id not found");
+    }
+
+    [HttpPut("{id:Guid}")]
+    public async Task<IActionResult> EditCategory(Guid id, EditCategoryRequestDto request)
+    {
+        Category category = new()
+        {
+            Id = id,
+            Name = request.Name,
+            UrlHandle = request.UrlHandle,
+        };
+        var cat = await _categoryRepository.EditAsync(category);
+        if (cat == null)
+            return NotFound();
+        return Ok(cat);
     }
 }

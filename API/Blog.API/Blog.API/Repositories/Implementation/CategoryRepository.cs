@@ -30,4 +30,15 @@ public class CategoryRepository : ICategoryRepository
     {
         return await _context.Categories.FindAsync(id);
     }
+
+    public async Task<Category?> EditAsync(Category category)
+    {
+        Category? existingCat = await _context.Categories.FindAsync(category.Id);
+        if (existingCat == null)
+            return null;
+        existingCat.Name = category.Name;
+        existingCat.UrlHandle = category.UrlHandle;
+        await _context.SaveChangesAsync();
+        return existingCat;
+    }
 }
