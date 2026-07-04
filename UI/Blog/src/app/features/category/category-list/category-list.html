@@ -10,6 +10,7 @@
           <th>شناسه</th>
           <th>نام</th>
           <th>پیوند</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,11 @@
           <td>{{category.id}}</td>
           <td>{{category.name}}</td>
           <td>{{category.urlHandle}}</td>
+          <td class="d-flex justify-content-center items-center">
+            <a class="btn btn-primary" [routerLink]="['/admin/categories/edit', category.id]"
+              >ویرایش</a
+            >
+          </td>
         </tr>
         }
       </tbody>

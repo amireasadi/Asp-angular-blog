@@ -1,7 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CategoryService } from '../services/category-service';
-import { category } from '../models/category.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
