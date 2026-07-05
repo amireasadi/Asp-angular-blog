@@ -28,3 +28,7 @@ Content-Type: application/json
   "name": "آقا اسدی برزگ",
   "urlHandle": "fromPut"
 }
+
+###
+DELETE http://localhost:5224/api/Categories/524d927e-dab0-4e34-1ee4-08ded73c3d58
+Content-Type: application/json
