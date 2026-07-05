@@ -8,3 +8,8 @@ export interface category {
   name: string;
   urlHandle: string;
 }
+
+export interface editCategoryRequest {
+  name: string;
+  urlHandle: string;
+}

@@ -1,6 +1,8 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { CategoryService } from '../services/category-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { editCategoryRequest } from '../models/category.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-category',
@@ -9,7 +11,20 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './edit-category.css',
 })
 export class EditCategory {
+  constructor() {
+    effect(() => {
+      if (this.categoryService.editCategoryStatus() === 'success') {
+        this.categoryService.editCategoryStatus.set('idle');
+        this.router.navigate(['/admin/categories']);
+      }
+      if (this.categoryService.editCategoryStatus() === 'error') {
+        this.categoryService.editCategoryStatus.set('idle');
+        console.log('Something went wrong trying to edit category');
+      }
+    });
+  }
   private categoryService = inject(CategoryService);
+  private router = inject(Router);
   id = input<string>();
   private getCategoryByIdRef = this.categoryService.getCategoryById(this.id);
   isLoading = this.getCategoryByIdRef.isLoading;
@@ -56,6 +71,13 @@ export class EditCategory {
   });
 
   onSubmit() {
-    console.log(this.editCategoryFormGroup.value);
+    let id = this.id();
+    if (!this.editCategoryFormGroup.valid || !id) return;
+    let formValues = this.editCategoryFormGroup.value;
+    let editCategoryReq: editCategoryRequest = {
+      name: formValues.title!,
+      urlHandle: formValues.url!,
+    };
+    this.categoryService.editCategory(id, editCategoryReq);
   }
 }
