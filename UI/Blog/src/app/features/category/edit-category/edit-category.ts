@@ -80,4 +80,18 @@ export class EditCategory {
     };
     this.categoryService.editCategory(id, editCategoryReq);
   }
+
+  deleteCategory() {
+    let id = this.id();
+    if (!id) return;
+
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        this.router.navigate(['/admin/categories']);
+      },
+      error: () => {
+        console.log('Something went wrong trying to delete category with id', id);
+      },
+    });
+  }
 }

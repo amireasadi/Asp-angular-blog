@@ -45,4 +45,8 @@ export class CategoryService {
       },
     });
   }
+
+  deleteCategory(id: string) {
+    return this.http.delete<category | null>(`${this.apiBaseUrl}/api/Categories/${id}`);
+  }
 }
