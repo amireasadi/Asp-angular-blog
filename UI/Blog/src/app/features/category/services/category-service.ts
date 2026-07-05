@@ -10,20 +10,10 @@ export class CategoryService {
   private http = inject(HttpClient);
   private apiBaseUrl = environment.API_BASE_URL;
 
-  public addCategoryStatus = signal<'idle' | 'error' | 'loading' | 'success'>('idle');
   public editCategoryStatus = signal<'idle' | 'error' | 'loading' | 'success'>('idle');
 
   addCategory(category: addCategoryRequest) {
-    this.addCategoryStatus.set('loading');
-    this.http.post(`${this.apiBaseUrl}/api/Categories`, category).subscribe({
-      next: (result) => {
-        this.addCategoryStatus.set('success');
-      },
-      error: (err) => {
-        this.addCategoryStatus.set('error');
-        console.log(err);
-      },
-    });
+    return this.http.post(`${this.apiBaseUrl}/api/Categories`, category);
   }
 
   getAllCategories() {

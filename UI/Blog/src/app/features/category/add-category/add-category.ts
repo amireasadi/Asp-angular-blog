@@ -11,19 +11,6 @@ import { Router } from '@angular/router';
   styleUrl: './add-category.css',
 })
 export class AddCategory {
-  constructor() {
-    effect(() => {
-      if (this.categoryService.addCategoryStatus() === 'success') {
-        this.categoryService.addCategoryStatus.set('idle');
-        this.router.navigate(['/admin/categories']);
-      }
-      if (this.categoryService.addCategoryStatus() === 'error') {
-        this.categoryService.addCategoryStatus.set('idle');
-        console.log('Something went wrong trying to add category');
-      }
-    });
-  }
-
   categoryService = inject(CategoryService);
   router = inject(Router);
 
@@ -69,7 +56,14 @@ export class AddCategory {
         name: addCategoryFormValue.title!,
         urlHandle: addCategoryFormValue.url!,
       };
-      this.categoryService.addCategory(addCategoryRequst);
+      this.categoryService.addCategory(addCategoryRequst).subscribe({
+        next: (result) => {
+          this.router.navigate(['/admin/categories']);
+        },
+        error: (err) => {
+          console.log('Something went wrong trying to add category');
+        },
+      });
       this.addCategoryFormGroup.reset();
     } else {
       console.log('Err');
