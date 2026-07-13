@@ -1,1 +1,52 @@
-<p>add-blogpost works!</p>
+<div class="container">
+  <h1 class="fw-bold">نوشته جدید</h1>
+  <form [formGroup]="addBlogpostFormGroup" class="mt-3" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">عنوان</label>
+      <input type="text" class="form-control" formControlName="title" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">توضیحات کوتاه</label>
+      <input type="text" class="form-control" formControlName="shortDescription" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">پیوند</label>
+      <input type="text" class="form-control" formControlName="urlHandle" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">محتوا</label>
+      <textarea class="form-control" formControlName="content" rows="5"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">تصویر شاخص</label>
+      <input type="text" class="form-control" ” formControlName="featuredImageUrl" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">نویسنده</label>
+      <input type="text" class="form-control" formControlName="author" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">تاریخ انتشار</label>
+      <input type="date" class="form-control" formControlName="publishedDate" />
+    </div>
+    <div class="mb-3">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="isVisible"
+          formControlName="isVisible"
+        />
+        <label class="form-check-label" for="isVisible">فعال</label>
+      </div>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-primary">ذخیره</button>
+    </div>
+  </form>
+</div>
