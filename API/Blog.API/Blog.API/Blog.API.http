@@ -32,3 +32,20 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5224/api/Categories/524d927e-dab0-4e34-1ee4-08ded73c3d58
 Content-Type: application/json
+
+
+### Send POST request with json body
+
+POST http://localhost:5224/api/BlogPosts
+Content-Type: application/json
+
+{
+  "author": "test",
+  "content": "متحپای زیاد",
+  "featuredImageUrl": "https://test.com/img.jpeg",
+  " isVisible": true,
+  "publishedDate": "2026-07-13",
+  "shortDescription": "توضیح...",
+  "title": "تست",
+  "urlHandle": "test"
+}
