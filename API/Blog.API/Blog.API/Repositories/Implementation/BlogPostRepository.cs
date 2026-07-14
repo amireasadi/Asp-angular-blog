@@ -1,6 +1,7 @@
 using Blog.API.Data;
 using Blog.API.Models.Domain;
 using Blog.API.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.API.Repositories.Implementation;
 
@@ -17,5 +18,10 @@ public class BlogPostRepository : IBlogPostRepository
         await _context.BlogPosts.AddAsync(blogPost);
         await _context.SaveChangesAsync();
         return blogPost;
+    }
+
+    public async Task<IEnumerable<BlogPost>> GetAllAsync()
+    {
+        return await _context.BlogPosts.ToListAsync();
     }
 }

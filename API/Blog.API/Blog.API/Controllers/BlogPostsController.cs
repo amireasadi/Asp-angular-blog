@@ -33,4 +33,10 @@ public class BlogPostsController : ControllerBase
         await _blogPostRepository.CreateAsync(newPost);
         return Ok(newPost);
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAllPosts()
+    {
+        return Ok(await _blogPostRepository.GetAllAsync());
+    }
 }

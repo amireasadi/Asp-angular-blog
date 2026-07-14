@@ -49,3 +49,7 @@ Content-Type: application/json
   "title": "تست",
   "urlHandle": "test"
 }
+
+###
+GET http://localhost:5224/api/BlogPosts
+Accept: application/json
