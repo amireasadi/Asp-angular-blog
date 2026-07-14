@@ -30,6 +30,13 @@
 
     <div class="mb-3">
       <label class="form-label">تصویر شاخص</label>
+      @if(addBlogpostFormGroup.controls.featuredImageUrl.value) {
+      <img
+        [src]="addBlogpostFormGroup.controls.featuredImageUrl.value"
+        class="my-2"
+        style="height: 100px; display: block"
+      />
+      }
       <input type="text" class="form-control" ” formControlName="featuredImageUrl" />
     </div>
 
