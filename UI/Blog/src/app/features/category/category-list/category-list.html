@@ -4,6 +4,11 @@
     <a class="btn btn-primary" [routerLink]="['/admin/category/add']">اضافه کردن</a>
   </div>
   <div>
+    @if(isLoading()){
+    <p>در حال بارگزاری...</p>
+    } @else{ @if (error()){
+    <p>خطایی پیش آمده!</p>
+    }@else{
     <table class="table table-bordered mt-3">
       <thead>
         <tr>
@@ -28,5 +33,6 @@
         }
       </tbody>
     </table>
+    } }
   </div>
 </div>
