@@ -43,7 +43,7 @@ Content-Type: application/json
   "author": "test",
   "content": "متحپای زیاد",
   "featuredImageUrl": "https://test.com/img.jpeg",
-  " isVisible": true,
+  "isVisible": true,
   "publishedDate": "2026-07-13",
   "shortDescription": "توضیح...",
   "title": "تست",

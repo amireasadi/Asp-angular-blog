@@ -26,7 +26,7 @@ public class BlogPostsController : ControllerBase
             Content = request.Content,
             Author = request.Author,
             FeaturedImageUrl = request.FeaturedImageUrl,
-            PublisheDate = request.PublisheDate,
+            PublishedDate= request.PublishedDate,
             IsVisible = request.IsVisible,
             UrlHandle = request.UrlHandle,
         };
