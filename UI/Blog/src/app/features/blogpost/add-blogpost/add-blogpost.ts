@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BlogpostService } from '../services/blogpost-service';
+import { IAddBlogPostRequest } from '../models/addBlogpostRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -8,6 +11,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './add-blogpost.css',
 })
 export class AddBlogpost {
+  blogpostService = inject(BlogpostService);
+  router = inject(Router);
+
   addBlogpostFormGroup = new FormGroup({
     title: new FormControl<string>('', [
       Validators.required,
@@ -30,6 +36,26 @@ export class AddBlogpost {
   });
 
   onSubmit() {
-    console.log(this.addBlogpostFormGroup.value);
+    let formValue = this.addBlogpostFormGroup.value;
+    let blogPostReq: IAddBlogPostRequest = {
+      title: formValue.title!,
+      shortDescription: formValue.shortDescription!,
+      content: formValue.content!,
+      featuredImageUrl: formValue.featuredImageUrl!,
+      urlHandle: formValue.urlHandle!,
+      publishedDate: new Date(formValue.publishedDate!),
+      author: formValue.author!,
+      isVisible: formValue.isVisible!,
+    };
+
+    this.blogpostService.addCategory(blogPostReq).subscribe({
+      next: (result) => {
+        console.log(result);
+        this.router.navigate(['admin/blogposts']);
+      },
+      error: () => {
+        console.error('Something went wring trying to creaet new blog post');
+      },
+    });
   }
 }
