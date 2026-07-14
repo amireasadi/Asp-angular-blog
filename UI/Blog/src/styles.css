@@ -28,3 +28,7 @@ span,
 a {
   font-family: 'Vazirmatn', sans-serif;
 }
+
+pre {
+  direction: ltr;
+}

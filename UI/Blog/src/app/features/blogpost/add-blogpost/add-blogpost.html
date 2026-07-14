@@ -17,8 +17,15 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">محتوا</label>
-      <textarea class="form-control" formControlName="content" rows="5"></textarea>
+      <div class="d-flex flex-row">
+        <div class="col-6 p-2">
+          <label class="form-label">محتوا</label>
+          <textarea class="form-control" formControlName="content" rows="5"></textarea>
+        </div>
+        <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll">
+          <markdown [data]="addBlogpostFormGroup.controls.content.getRawValue()"></markdown>
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
