@@ -48,7 +48,7 @@ export class AddBlogpost {
       isVisible: formValue.isVisible!,
     };
 
-    this.blogpostService.addCategory(blogPostReq).subscribe({
+    this.blogpostService.addBlogPost(blogPostReq).subscribe({
       next: (result) => {
         console.log(result);
         this.router.navigate(['admin/blogposts']);
