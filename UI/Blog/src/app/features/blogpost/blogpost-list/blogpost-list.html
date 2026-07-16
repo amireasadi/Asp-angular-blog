@@ -12,9 +12,10 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Short Description</th>
-          <th>Is Visible</th>
+          <th>عنوان</th>
+          <th>توضیح کوتاه</th>
+          <th>فعال</th>
+          <th>دسته بندی</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,11 @@
           <td>{{ blogPost.title }}</td>
           <td>{{ blogPost.shortDescription }}</td>
           <td>{{ blogPost.isVisible }}</td>
+          <td>
+            @for (category of blogPost.categories; track category.id) {
+            <span class="badge bg-secondary">{{category.name}}</span>
+            }
+          </td>
         </tr>
         }
       </tbody>
