@@ -70,6 +70,31 @@ public class BlogPostsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllPosts()
     {
-        return Ok(await _blogPostRepository.GetAllAsync());
+        var blogposts = await _blogPostRepository.GetAllAsync();
+        var response = new List<BlogPostDto>();
+        foreach (var post in blogposts)
+        {
+            response.Add(new BlogPostDto()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                ShortDescription = post.ShortDescription,
+                Content = post.Content,
+                Author = post.Author,
+                FeaturedImageUrl = post.FeaturedImageUrl,
+                PublishedDate = post.PublishedDate,
+                IsVisible = post.IsVisible,
+                UrlHandle = post.UrlHandle,
+                Categories = post.Categories.Select((cat) => new CategoryDto
+                    {
+                        Id = cat.Id,
+                        Name = cat.Name,
+                        UrlHandle = cat.UrlHandle,
+                    })
+                    .ToList()
+            });
+        }
+
+        return Ok(response);
     }
 }
