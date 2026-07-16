@@ -4,6 +4,7 @@ import { BlogpostService } from '../services/blogpost-service';
 import { IAddBlogPostRequest } from '../models/addBlogpostRequest';
 import { Router } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
+import { CategoryService } from '../../category/services/category-service';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -13,7 +14,10 @@ import { MarkdownComponent } from 'ngx-markdown';
 })
 export class AddBlogpost {
   blogpostService = inject(BlogpostService);
+  categoryService = inject(CategoryService);
   router = inject(Router);
+  private getAllCategoryRefrence = this.categoryService.getAllCategories();
+  value = this.getAllCategoryRefrence.value;
 
   addBlogpostFormGroup = new FormGroup({
     title: new FormControl<string>('', [
