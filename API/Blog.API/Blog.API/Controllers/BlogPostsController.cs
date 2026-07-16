@@ -10,10 +10,13 @@ namespace Blog.API.Controllers;
 public class BlogPostsController : ControllerBase
 {
     private readonly IBlogPostRepository _blogPostRepository;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public BlogPostsController(IBlogPostRepository blogPostRepository)
+    public BlogPostsController(IBlogPostRepository blogPostRepository,
+        ICategoryRepository categoryRepository)
     {
         _blogPostRepository = blogPostRepository;
+        _categoryRepository = categoryRepository;
     }
 
     [HttpPost]
@@ -26,14 +29,44 @@ public class BlogPostsController : ControllerBase
             Content = request.Content,
             Author = request.Author,
             FeaturedImageUrl = request.FeaturedImageUrl,
-            PublishedDate= request.PublishedDate,
+            PublishedDate = request.PublishedDate,
             IsVisible = request.IsVisible,
             UrlHandle = request.UrlHandle,
+            Categories = new List<Category>()
         };
+
+        foreach (var catId in request.Categories)
+        {
+            var existingCat = await _categoryRepository.GetByIdAsync(catId);
+            if (existingCat != null)
+                newPost.Categories.Add(existingCat);
+        }
+
         await _blogPostRepository.CreateAsync(newPost);
-        return Ok(newPost);
+
+        BlogPostDto response = new()
+        {
+            Id = newPost.Id,
+            Title = newPost.Title,
+            ShortDescription = newPost.ShortDescription,
+            Content = newPost.Content,
+            Author = newPost.Author,
+            FeaturedImageUrl = newPost.FeaturedImageUrl,
+            PublishedDate = newPost.PublishedDate,
+            IsVisible = newPost.IsVisible,
+            UrlHandle = newPost.UrlHandle,
+            Categories = newPost.Categories.Select((cat) => new CategoryDto
+                {
+                    Id = cat.Id,
+                    Name = cat.Name,
+                    UrlHandle = cat.UrlHandle,
+                })
+                .ToList()
+        };
+
+        return Ok(response);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetAllPosts()
     {

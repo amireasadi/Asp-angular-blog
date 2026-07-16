@@ -40,14 +40,19 @@ POST http://localhost:5224/api/BlogPosts
 Content-Type: application/json
 
 {
-  "author": "test",
-  "content": "متحپای زیاد",
+  "author": "test for post and category relations",
+  "content": "content of the test",
   "featuredImageUrl": "https://test.com/img.jpeg",
   "isVisible": true,
   "publishedDate": "2026-07-13",
   "shortDescription": "توضیح...",
   "title": "تست",
-  "urlHandle": "test"
+  "urlHandle": "cat-post-relation",
+  "categories": [
+    "00e8e4de-6829-4759-8b35-08dedad52363",
+    "894760d0-9bfc-4438-9153-08dedf3b4791",
+    "8264050f-7a56-43ee-bf8d-08dee2585ac8"
+  ] 
 }
 
 ###
