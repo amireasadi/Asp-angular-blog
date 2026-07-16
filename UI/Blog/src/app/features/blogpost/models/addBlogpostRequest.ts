@@ -9,6 +9,7 @@ export interface IAddBlogPostRequest {
   publishedDate: Date;
   author: string;
   isVisible: boolean;
+  categories: string[];
 }
 
 export interface IBlogPost {

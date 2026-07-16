@@ -38,6 +38,7 @@ export class AddBlogpost {
     ]),
     author: new FormControl<string>('', [Validators.required, Validators.maxLength(200)]),
     isVisible: new FormControl<boolean>(true),
+    categories: new FormControl<string[]>([]),
   });
 
   onSubmit() {
@@ -51,6 +52,7 @@ export class AddBlogpost {
       publishedDate: new Date(formValue.publishedDate!),
       author: formValue.author!,
       isVisible: formValue.isVisible!,
+      categories: formValue.categories ?? [],
     };
 
     this.blogpostService.addBlogPost(blogPostReq).subscribe({
