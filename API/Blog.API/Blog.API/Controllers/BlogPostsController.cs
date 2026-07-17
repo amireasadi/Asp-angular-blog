@@ -97,4 +97,36 @@ public class BlogPostsController : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpGet("{id:Guid}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        BlogPost? existingPost = await _blogPostRepository.GetByIdAsync(id);
+        if (existingPost == null)
+        {
+            return NotFound();
+        }
+
+        BlogPostDto response = new()
+        {
+            Id = existingPost.Id,
+            Title = existingPost.Title,
+            ShortDescription = existingPost.ShortDescription,
+            Content = existingPost.Content,
+            Author = existingPost.Author,
+            FeaturedImageUrl = existingPost.FeaturedImageUrl,
+            PublishedDate = existingPost.PublishedDate,
+            IsVisible = existingPost.IsVisible,
+            UrlHandle = existingPost.UrlHandle,
+            Categories = existingPost.Categories.Select((cat) => new CategoryDto
+                {
+                    Id = cat.Id,
+                    Name = cat.Name,
+                    UrlHandle = cat.UrlHandle,
+                })
+                .ToList()
+        };
+
+        return Ok(response);
+    }
 }

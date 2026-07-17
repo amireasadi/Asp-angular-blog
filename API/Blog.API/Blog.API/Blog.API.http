@@ -58,3 +58,7 @@ Content-Type: application/json
 ###
 GET http://localhost:5224/api/BlogPosts
 Accept: application/json
+
+###
+GET http://localhost:5224/api/BlogPosts/bb32e91a-1fb3-4348-ce7a-08dee377c652
+Accept: application/json
