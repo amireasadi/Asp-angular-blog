@@ -180,4 +180,29 @@ public class BlogPostsController : ControllerBase
         
         return Ok(response);
     }
+    
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> DeleteById(Guid id)
+    {
+        BlogPost? existingPost = await _blogPostRepository.DeleteAsync(id);
+        if (existingPost == null)
+        {
+            return NotFound();
+        }
+
+        BlogPostDto response = new()
+        {
+            Id = existingPost.Id,
+            Title = existingPost.Title,
+            ShortDescription = existingPost.ShortDescription,
+            Content = existingPost.Content,
+            Author = existingPost.Author,
+            FeaturedImageUrl = existingPost.FeaturedImageUrl,
+            PublishedDate = existingPost.PublishedDate,
+            IsVisible = existingPost.IsVisible,
+            UrlHandle = existingPost.UrlHandle,
+        };
+
+        return Ok(response);
+    }
 }
