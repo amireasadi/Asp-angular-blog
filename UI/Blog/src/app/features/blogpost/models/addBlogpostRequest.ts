@@ -12,6 +12,18 @@ export interface IAddBlogPostRequest {
   categories: string[];
 }
 
+export interface IEditBlogPostRequest {
+  title: string;
+  shortDescription: string;
+  content: string;
+  featuredImageUrl: string;
+  urlHandle: string;
+  publishedDate: Date;
+  author: string;
+  isVisible: boolean;
+  categories: string[];
+}
+
 export interface IBlogPost {
   id: string;
   title: string;

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MarkdownComponent } from 'ngx-markdown';
 import { BlogpostService } from '../services/blogpost-service';
 import { CategoryService } from '../../category/services/category-service';
+import { IEditBlogPostRequest } from '../models/addBlogpostRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -12,6 +14,7 @@ import { CategoryService } from '../../category/services/category-service';
 })
 export class EditBlogpost implements OnInit {
   id = input<string>();
+  router = inject(Router);
   blogpostService = inject(BlogpostService);
   categoryService = inject(CategoryService);
   private getAllCategoryRefrence = this.categoryService.getAllCategories();
@@ -61,6 +64,30 @@ export class EditBlogpost implements OnInit {
   });
 
   onSubmit() {
-    console.log(this.editBlogpostFormGroup.value);
+    let id = this.id();
+    if (this.editBlogpostFormGroup.valid && id) {
+      let formValue = this.editBlogpostFormGroup.value;
+      let editReq: IEditBlogPostRequest = {
+        title: formValue.title!,
+        author: formValue.author!,
+        categories: formValue.categories ?? [],
+        content: formValue.content!,
+        featuredImageUrl: formValue.featuredImageUrl!,
+        isVisible: formValue.isVisible!,
+        publishedDate: new Date(formValue.publishedDate!),
+        shortDescription: formValue.shortDescription!,
+        urlHandle: formValue.urlHandle!,
+      };
+
+      this.blogpostService.editBlogPost(id, editReq).subscribe({
+        next: (result) => {
+          console.log(result);
+          this.router.navigate(['admin/blogposts']);
+        },
+        error: () => {
+          console.error('Something went wrong trying edit the selected post.');
+        },
+      });
+    }
   }
 }
