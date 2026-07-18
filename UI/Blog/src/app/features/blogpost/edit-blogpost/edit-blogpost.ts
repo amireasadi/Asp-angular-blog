@@ -17,6 +17,7 @@ export class EditBlogpost implements OnInit {
   router = inject(Router);
   blogpostService = inject(BlogpostService);
   categoryService = inject(CategoryService);
+
   private getAllCategoryRefrence = this.categoryService.getAllCategories();
   categoriesResult = this.getAllCategoryRefrence.value;
 
@@ -86,6 +87,21 @@ export class EditBlogpost implements OnInit {
         },
         error: () => {
           console.error('Something went wrong trying edit the selected post.');
+        },
+      });
+    }
+  }
+
+  deletePost() {
+    let id = this.id();
+    if (id) {
+      this.blogpostService.deleteBlogPost(id).subscribe({
+        next: (result) => {
+          console.log(result);
+          this.router.navigate(['admin/blogposts']);
+        },
+        error: () => {
+          console.error('Something went wrong trying to delete selected post.');
         },
       });
     }

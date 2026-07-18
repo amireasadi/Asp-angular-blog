@@ -25,4 +25,8 @@ export class BlogpostService {
   editBlogPost(id: string, body: IEditBlogPostRequest) {
     return this.http.put<IBlogPost>(`${this.apiBaseUrl}/api/blogposts/${id}`, body);
   }
+
+  deleteBlogPost(id: string) {
+    return this.http.delete<IBlogPost>(`${this.apiBaseUrl}/api/blogposts/${id}`);
+  }
 }
