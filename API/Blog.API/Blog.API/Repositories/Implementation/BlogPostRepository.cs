@@ -29,4 +29,15 @@ public class BlogPostRepository : IBlogPostRepository
     {
         return await _context.BlogPosts.Include(b => b.Categories).FirstOrDefaultAsync(b => b.Id == id);
     }
+
+    public async Task<BlogPost?> EditAsync(BlogPost blogPost)
+    {
+        var existingPost = await _context.BlogPosts.Include(b => b.Categories).FirstOrDefaultAsync(b => b.Id == blogPost.Id);
+        if (existingPost == null)
+            return null;
+        _context.Entry(existingPost).CurrentValues.SetValues(blogPost);
+        existingPost.Categories = blogPost.Categories;
+        await _context.SaveChangesAsync();
+        return existingPost;
+    }
 }

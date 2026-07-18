@@ -129,4 +129,55 @@ public class BlogPostsController : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpPut("{id:Guid}")]
+    public async Task<IActionResult> UpdateById(Guid id, UpdateBlogPosRequestDto request)
+    {
+        BlogPost existingPost = new()
+        {
+            Id = id,
+            Title = request.Title,
+            ShortDescription = request.ShortDescription,
+            Content = request.Content,
+            Author = request.Author,
+            FeaturedImageUrl = request.FeaturedImageUrl,
+            PublishedDate = request.PublishedDate,
+            IsVisible = request.IsVisible,
+            UrlHandle = request.UrlHandle,
+            Categories = new List<Category>()
+        };
+
+        foreach (var catId in request.Categories)
+        {
+            var existingCat = await _categoryRepository.GetByIdAsync(catId);
+            if (existingCat != null)
+                existingPost.Categories.Add(existingCat);
+        }
+
+        var editedPost = await _blogPostRepository.EditAsync(existingPost);
+        if (editedPost == null)
+            return NotFound();
+
+        BlogPostDto response = new()
+        {
+            Id = existingPost.Id,
+            Title = existingPost.Title,
+            ShortDescription = existingPost.ShortDescription,
+            Content = existingPost.Content,
+            Author = existingPost.Author,
+            FeaturedImageUrl = existingPost.FeaturedImageUrl,
+            PublishedDate = existingPost.PublishedDate,
+            IsVisible = existingPost.IsVisible,
+            UrlHandle = existingPost.UrlHandle,
+            Categories = existingPost.Categories.Select((cat) => new CategoryDto
+                {
+                    Id = cat.Id,
+                    Name = cat.Name,
+                    UrlHandle = cat.UrlHandle,
+                })
+                .ToList()
+        };
+        
+        return Ok(response);
+    }
 }

@@ -62,3 +62,20 @@ Accept: application/json
 ###
 GET http://localhost:5224/api/BlogPosts/bb32e91a-1fb3-4348-ce7a-08dee377c652
 Accept: application/json
+
+###
+PUT http://localhost:5224/api/BlogPosts/bb32e91a-1fb3-4348-ce7a-08dee377c652
+Content-Type: application/json
+
+{
+  "title":"java *EDITED",
+  "shortDescription":"java related post *EDITED",
+  "content":"#test\ndsfds\n\ndsadsf *EDITED",
+  "featuredImageUrl":"https://iranaiai.ir/wp-content/uploads/2025/12/iranaiai-home-pic-abstract03.png",
+  "urlHandle":"java-post *EDITED",
+  "publishedDate":"2023-03-13",
+  "author":"Amir",
+  "isVisible":false,
+  "categories":["894760d0-9bfc-4438-9153-08dedf3b4791"]
+}
+
