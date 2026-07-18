@@ -13,7 +13,12 @@ export class BlogpostService {
   addBlogPost(blogPost: IAddBlogPostRequest) {
     return this.http.post<IBlogPost>(`${this.apiBaseUrl}/api/blogposts`, blogPost);
   }
+
   getAllBlogPosts() {
     return httpResource<IBlogPost[]>(() => `${this.apiBaseUrl}/api/blogposts`);
+  }
+
+  getBlogPostById(id: string) {
+    return this.http.get<IBlogPost>(`${this.apiBaseUrl}/api/blogposts/${id}`);
   }
 }

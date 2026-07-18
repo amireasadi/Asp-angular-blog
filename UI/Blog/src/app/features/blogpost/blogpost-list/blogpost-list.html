@@ -16,6 +16,7 @@
           <th>توضیح کوتاه</th>
           <th>فعال</th>
           <th>دسته بندی</th>
+          <th>عملیات</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,11 @@
             @for (category of blogPost.categories; track category.id) {
             <span class="badge bg-secondary">{{category.name}}</span>
             }
+          </td>
+          <td>
+            <a class="btn btn-primary" [routerLink]="['/admin/blogposts/edit', blogPost.id]"
+              >ویرایش</a
+            >
           </td>
         </tr>
         }
