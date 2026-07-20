@@ -38,6 +38,14 @@
       />
       }
       <input type="text" class="form-control" ” formControlName="featuredImageUrl" />
+      <button
+        type="button"
+        class="btn btn-secondary mt-3"
+        data-bs-toggle="modal"
+        data-bs-target="#imageSelecotrModal"
+      >
+        باگزاری تصویر
+      </button>
     </div>
 
     <div class="mb-3">
@@ -73,3 +81,5 @@
     </div>
   </form>
 </div>
+
+<app-image-selector></app-image-selector>
