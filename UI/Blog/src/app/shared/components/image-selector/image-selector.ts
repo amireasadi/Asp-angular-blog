@@ -10,6 +10,10 @@ import { ImageSelectorService } from '../../services/image-selector-service';
 })
 export class ImageSelector {
   imageSelectorService = inject(ImageSelectorService);
+  private getAllImagesReference = this.imageSelectorService.getAllImages();
+  isLoading = this.getAllImagesReference.isLoading;
+  error = this.getAllImagesReference.error;
+  images = this.getAllImagesReference.value;
 
   imageSelectorFormGroup = new FormGroup({
     file: new FormControl<File | null | undefined>(null, Validators.required),
@@ -18,6 +22,7 @@ export class ImageSelector {
   });
 
   onFileSelected(event: Event) {
+    console.log(this.images());
     const imagePathArr = `${this.imageSelectorFormGroup.value.file}`.split('\\');
     const input = event.target as HTMLInputElement;
 
@@ -38,7 +43,11 @@ export class ImageSelector {
       this.imageSelectorService
         .uploadImage(formValue.file!, formValue.imageName!, formValue.title!)
         .subscribe({
-          next: (result) => console.log(result),
+          next: (result) => {
+            console.log(result);
+            this.imageSelectorFormGroup.reset();
+            this.getAllImagesReference.reload();
+          },
           error: () => console.log('Something went wrong trying to updload image'),
         });
     }

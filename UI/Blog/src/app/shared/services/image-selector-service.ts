@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { IBlogImage } from '../models/BlogImage.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +16,9 @@ export class ImageSelectorService {
     formData.append('fileName', fileName);
     formData.append('title', title);
     return this.http.post(`${this.apiBaseUrl}/api/images`, formData);
+  }
+
+  getAllImages() {
+    return httpResource<IBlogImage[]>(() => `${this.apiBaseUrl}/api/images`);
   }
 }
