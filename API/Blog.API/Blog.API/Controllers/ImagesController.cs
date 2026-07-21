@@ -15,6 +15,12 @@ public class ImagesController : ControllerBase
         _imageRepository = imageRepository;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAllImages()
+    {
+        return Ok(await _imageRepository.GetAll());
+    }
+
     [HttpPost]
     public async Task<IActionResult> UploadImage([FromForm] IFormFile file, [FromForm] string fileName,
         [FromForm] string title)

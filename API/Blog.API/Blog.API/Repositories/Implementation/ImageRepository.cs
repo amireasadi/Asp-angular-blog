@@ -1,6 +1,7 @@
 using Blog.API.Data;
 using Blog.API.Models.Domain;
 using Blog.API.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.API.Repositories.Implementation;
 
@@ -41,5 +42,10 @@ public class ImageRepository : IImageRepository
         }
 
         return image;
+    }
+
+    public async Task<IEnumerable<BlogImage>> GetAll()
+    {
+        return await _dbContext.BlogImages.ToListAsync();
     }
 }
