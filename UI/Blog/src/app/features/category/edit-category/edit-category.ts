@@ -57,7 +57,6 @@ export class EditCategory {
     this.editCategoryFormGroup.controls.title.patchValue(this.value()?.name ?? '');
     this.editCategoryFormGroup.controls.url.patchValue(this.value()?.urlHandle ?? '');
   });
-
   onSubmit() {
     let id = this.id();
     if (!this.editCategoryFormGroup.valid || !id) return;

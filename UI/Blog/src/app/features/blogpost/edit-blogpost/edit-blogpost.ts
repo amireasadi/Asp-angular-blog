@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, effect, inject, input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
 import { BlogpostService } from '../services/blogpost-service';
@@ -6,6 +6,7 @@ import { CategoryService } from '../../category/services/category-service';
 import { IEditBlogPostRequest } from '../models/addBlogpostRequest';
 import { Router } from '@angular/router';
 import { ImageSelector } from '../../../shared/components/image-selector/image-selector';
+import { ImageSelectorService } from '../../../shared/services/image-selector-service';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -18,6 +19,7 @@ export class EditBlogpost implements OnInit {
   router = inject(Router);
   blogpostService = inject(BlogpostService);
   categoryService = inject(CategoryService);
+  private imageService = inject(ImageSelectorService);
 
   private getAllCategoryRefrence = this.categoryService.getAllCategories();
   categoriesResult = this.getAllCategoryRefrence.value;
@@ -63,6 +65,15 @@ export class EditBlogpost implements OnInit {
     author: new FormControl<string>('', [Validators.required, Validators.maxLength(200)]),
     isVisible: new FormControl<boolean>(true),
     categories: new FormControl<string[]>([]),
+  });
+
+  selectedImageEffectref = effect(() => {
+    const selectedImageUrl = this.imageService.selectedImage();
+    if (selectedImageUrl) {
+      this.editBlogpostFormGroup.patchValue({
+        featuredImageUrl: selectedImageUrl,
+      });
+    }
   });
 
   onSubmit() {

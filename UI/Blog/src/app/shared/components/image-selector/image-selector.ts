@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageSelectorService } from '../../services/image-selector-service';
+import { IBlogImage } from '../../models/BlogImage.model';
 
 @Component({
   selector: 'app-image-selector',
@@ -14,12 +15,25 @@ export class ImageSelector {
   isLoading = this.getAllImagesReference.isLoading;
   error = this.getAllImagesReference.error;
   images = this.getAllImagesReference.value;
+  selectedImage: IBlogImage | null = null;
 
   imageSelectorFormGroup = new FormGroup({
     file: new FormControl<File | null | undefined>(null, Validators.required),
     imageName: new FormControl<string>('', Validators.required),
     title: new FormControl<string>('', Validators.required),
   });
+
+  onSelectImage(image: IBlogImage) {
+    this.selectedImage = image;
+  }
+
+  onSetImage() {
+    if (this.selectedImage != null) {
+      this.imageSelectorService.selectImage(this.selectedImage.url);
+    } else {
+      console.log('Please selecte an image!');
+    }
+  }
 
   onFileSelected(event: Event) {
     console.log(this.images());
@@ -47,6 +61,7 @@ export class ImageSelector {
             console.log(result);
             this.imageSelectorFormGroup.reset();
             this.getAllImagesReference.reload();
+            this.selectedImage = result;
           },
           error: () => console.log('Something went wrong trying to updload image'),
         });
