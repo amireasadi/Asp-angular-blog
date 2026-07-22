@@ -1,20 +1,23 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogpostService } from '../services/blogpost-service';
 import { IAddBlogPostRequest } from '../models/addBlogpostRequest';
 import { Router } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 import { CategoryService } from '../../category/services/category-service';
+import { ImageSelector } from '../../../shared/components/image-selector/image-selector';
+import { ImageSelectorService } from '../../../shared/services/image-selector-service';
 
 @Component({
   selector: 'app-add-blogpost',
-  imports: [ReactiveFormsModule, MarkdownComponent],
+  imports: [ReactiveFormsModule, MarkdownComponent, ImageSelector],
   templateUrl: './add-blogpost.html',
   styleUrl: './add-blogpost.css',
 })
 export class AddBlogpost {
   blogpostService = inject(BlogpostService);
   categoryService = inject(CategoryService);
+  imageService = inject(ImageSelectorService);
   router = inject(Router);
   private getAllCategoryRefrence = this.categoryService.getAllCategories();
   value = this.getAllCategoryRefrence.value;
@@ -39,6 +42,15 @@ export class AddBlogpost {
     author: new FormControl<string>('', [Validators.required, Validators.maxLength(200)]),
     isVisible: new FormControl<boolean>(true),
     categories: new FormControl<string[]>([]),
+  });
+
+  selectedImageEffectref = effect(() => {
+    const selectedImageUrl = this.imageService.selectedImage();
+    if (selectedImageUrl) {
+      this.addBlogpostFormGroup.patchValue({
+        featuredImageUrl: selectedImageUrl,
+      });
+    }
   });
 
   onSubmit() {

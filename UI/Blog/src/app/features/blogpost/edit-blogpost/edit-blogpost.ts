@@ -19,7 +19,7 @@ export class EditBlogpost implements OnInit {
   router = inject(Router);
   blogpostService = inject(BlogpostService);
   categoryService = inject(CategoryService);
-  private imageService = inject(ImageSelectorService);
+  imageService = inject(ImageSelectorService);
 
   private getAllCategoryRefrence = this.categoryService.getAllCategories();
   categoriesResult = this.getAllCategoryRefrence.value;
