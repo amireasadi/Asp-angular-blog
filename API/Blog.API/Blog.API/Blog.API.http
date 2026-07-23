@@ -79,3 +79,6 @@ Content-Type: application/json
   "categories":["894760d0-9bfc-4438-9153-08dedf3b4791"]
 }
 
+###
+GET http://localhost:5224/api/BlogPosts/img-selctor
+Accept: application/json
