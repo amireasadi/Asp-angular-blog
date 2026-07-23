@@ -1,0 +1,26 @@
+<div class="container">
+  @if(isLoading()){
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  } @else{ @if (error()){
+
+  <p>خطایی پیش آمده!</p>
+  }@else{
+
+  <div class="row g-4">
+    @for(post of blogposts(); track post.id) {
+    <div class="col-4">
+      <div class="card">
+        <img [src]="post.featuredImageUrl" class="card-img-top" [alt]="post.title" />
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text">{{post.shortDescription.slice(0, 100)}}...</p>
+          <a [routerLink]="['/blog/', post.urlHandle]" class="btn btn-primary">بیشتر</a>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } }
+</div>

@@ -1,5 +1,5 @@
-import { HttpClient, httpResource } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
+import { inject, Injectable, InputSignal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { IAddBlogPostRequest, IBlogPost, IEditBlogPostRequest } from '../models/addBlogpostRequest';
 
@@ -20,6 +20,12 @@ export class BlogpostService {
 
   getBlogPostById(id: string) {
     return this.http.get<IBlogPost>(`${this.apiBaseUrl}/api/blogposts/${id}`);
+  }
+
+  getBlogPostByUrlHandle(
+    url: InputSignal<string | undefined>,
+  ): HttpResourceRef<IBlogPost | undefined> {
+    return httpResource<IBlogPost>(() => `${this.apiBaseUrl}/api/blogposts/${url()}`);
   }
 
   editBlogPost(id: string, body: IEditBlogPostRequest) {
